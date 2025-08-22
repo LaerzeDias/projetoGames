@@ -31,4 +31,11 @@ public class GameService {
                 .orElseThrow(() -> new EntityNotFoundException("Jogo de id " + id + " não encontrado."));
         return new GameDTO(game);
     }
+
+    @Transactional(readOnly = true)
+    public List<GameMinDTO> findByList(Long id) {
+        return gameRepository.findByList(id).stream()
+                .map(GameMinDTO::new)
+                .toList();
+    }
 }
